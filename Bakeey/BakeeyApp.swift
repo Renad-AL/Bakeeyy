@@ -1,17 +1,19 @@
-//
-//  BakeeyApp.swift
-//  Bakeey
-//
-//  Created by Renad Alyousef on 27/07/1446 AH.
-//
-
 import SwiftUI
-
 @main
 struct BakeeyApp: App {
+    @StateObject var userViewModel = UserViewModel()
+    @StateObject var bookingViewModel = BookingViewModel()
+    @StateObject var chefViewModel = ChefViewModel() // ✅ New
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+                .environmentObject(userViewModel)
+                .environmentObject(bookingViewModel)
+                .environmentObject(chefViewModel) // ✅ Provide globally
+                .onAppear {
+                    chefViewModel.fetchChefs() // ✅ Load chefs at start
+                }
         }
     }
 }

@@ -6,8 +6,7 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var showError = false
-    @State private var isPasswordVisible = false // ✅ Password toggle
-    
+
     var body: some View {
         VStack(spacing: 16) {
             // ✅ Drag Indicator
@@ -29,23 +28,11 @@ struct LoginView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.bottom, 5)
 
-                // ✅ Password Input with Eye Icon
+                // ✅ Password Input
                 Text("Password")
                     .font(.headline)
-                HStack {
-                    if isPasswordVisible {
-                        TextField("Password", text: $password)
-                    } else {
-                        SecureField("Password", text: $password)
-                    }
-                    Button(action: {
-                        isPasswordVisible.toggle()
-                    }) {
-                        Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                            .foregroundColor(.gray)
-                    }
-                }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 // ✅ Error Message
                 if showError {
@@ -56,13 +43,15 @@ struct LoginView: View {
             }
             .padding(.horizontal)
 
-            // ✅ Sign-In Button
+            // ✅ Sign-In Button (Fixed)
             Button(action: {
                 userViewModel.login(email: email, password: password) { success in
-                    if success {
-                        presentationMode.wrappedValue.dismiss() // ✅ Close bottom sheet after login
-                    } else {
-                        showError = true
+                    DispatchQueue.main.async {
+                        if success {
+                            presentationMode.wrappedValue.dismiss() // ✅ Close bottom sheet after login
+                        } else {
+                            showError = true
+                        }
                     }
                 }
             }) {

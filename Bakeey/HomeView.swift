@@ -33,7 +33,7 @@ struct HomeView: View {
                     chefViewModel.fetchChefs() // ✅ Ensure chefs are loaded
                 }
 
-                // ✅ Upcoming Booked Courses (Fixed Horizontal Scrolling)
+                // ✅ Upcoming Booked Courses Section (Still Included)
                 VStack(alignment: .leading) {
                     Text("Upcoming")
                         .font(.headline)
@@ -91,7 +91,7 @@ struct HomeView: View {
 
                 Spacer() // Push bottom navigation to the bottom
 
-                // ✅ Bottom Navigation Bar (Fixed Profile Navigation)
+                // ✅ Bottom Navigation Bar (No Profile Navigation Issues)
                 HStack {
                     NavigationLink(destination: HomeView()) {
                         VStack {
@@ -112,20 +112,6 @@ struct HomeView: View {
                                 .scaledToFit()
                                 .frame(width: 48, height: 48)
                             Text("Course")
-                                .foregroundColor(.black)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    }
-
-                    NavigationLink(destination: ProfileView()
-                        .environmentObject(userViewModel)
-                        .environmentObject(bookingViewModel)) { // ✅ FIXED PROFILE NAVIGATION
-                        VStack {
-                            Image("personicon") // ✅ Your icon
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48, height: 48)
-                            Text("Profile")
                                 .foregroundColor(.black)
                         }
                         .frame(maxWidth: .infinity, alignment: .center)

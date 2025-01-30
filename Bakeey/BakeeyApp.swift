@@ -1,19 +1,16 @@
 import SwiftUI
 @main
 struct BakeeyApp: App {
-    @StateObject var userViewModel = UserViewModel()
+    @StateObject var userViewModel = UserViewModel() // ✅ Proper initialization
     @StateObject var bookingViewModel = BookingViewModel()
-    @StateObject var chefViewModel = ChefViewModel() // ✅ New
+    @StateObject var chefViewModel = ChefViewModel()
 
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environmentObject(userViewModel)
+                .environmentObject(userViewModel) // ✅ Inject globally
                 .environmentObject(bookingViewModel)
-                .environmentObject(chefViewModel) // ✅ Provide globally
-                .onAppear {
-                    chefViewModel.fetchChefs() // ✅ Load chefs at start
-                }
+                .environmentObject(chefViewModel)
         }
     }
 }

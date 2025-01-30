@@ -29,13 +29,17 @@ class UserViewModel: ObservableObject {
                         print("✅ Users Fetched: \(self.users.count) users loaded.")
 
                         // **Auto-set current user's name if logged in**
-                        if let userID = self.currentUserID,
-                           let user = self.users.first(where: { $0.fields.id == userID }) {
-                            self.currentUserName = user.fields.name
+                        if let userID = self.currentUserID {
+                            if let foundUser = self.users.first(where: { $0.fields.id == userID }) {
+                                self.currentUserName = foundUser.fields.name
+                            }
                         }
                     }
                 } catch {
                     print("❌ Decoding Error:", error)
+                    if let jsonString = String(data: data, encoding: .utf8) {
+                        print("📌 API Response:\n\(jsonString)") // Debugging
+                    }
                 }
             } else if let error = error {
                 print("❌ API Request Error:", error.localizedDescription)
@@ -51,15 +55,14 @@ class UserViewModel: ObservableObject {
         fetchUsers()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if let user = self.users.first(where: {
-                $0.fields.email.lowercased() == cleanedEmail &&
-                $0.fields.password == cleanedPassword
+            if let foundUser = self.users.first(where: {
+                $0.fields.email.lowercased() == cleanedEmail && $0.fields.password == cleanedPassword
             }) {
                 self.isAuthenticated = true
-                self.currentUserID = user.fields.id
-                self.currentUserName = user.fields.name // ✅ Set current user's name
+                self.currentUserID = foundUser.fields.id
+                self.currentUserName = foundUser.fields.name // ✅ Set current user's name
 
-                UserDefaults.standard.set(user.fields.id, forKey: "userID")
+                UserDefaults.standard.set(foundUser.fields.id, forKey: "userID")
 
                 completion(true)
             } else {

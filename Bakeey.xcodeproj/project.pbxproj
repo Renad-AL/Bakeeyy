@@ -29,9 +29,30 @@
 		01935E642D47A466004ED806 /* BakeeyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BakeeyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		01935F152D4B989C004ED806 /* Exceptions for "Bakeey" folder in "Bakeey" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BakeeyUITestsLaunchTests.swift,
+			);
+			target = 01935E492D47A465004ED806 /* Bakeey */;
+		};
+		01935F162D4B989C004ED806 /* Exceptions for "Bakeey" folder in "BakeeyUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BakeeyUITestsLaunchTests.swift,
+			);
+			target = 01935E632D47A466004ED806 /* BakeeyUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		01935E4C2D47A465004ED806 /* Bakeey */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				01935F152D4B989C004ED806 /* Exceptions for "Bakeey" folder in "Bakeey" target */,
+				01935F162D4B989C004ED806 /* Exceptions for "Bakeey" folder in "BakeeyUITests" target */,
+			);
 			path = Bakeey;
 			sourceTree = "<group>";
 		};
